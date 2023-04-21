@@ -48,7 +48,7 @@ userSchema.methods = {
   },
 
   //Generate JWT Token
-  generatePassword: async () => {
+  getJWTtoken: async () => {
     jwt.sign({ role: this.role }, config.JWT_SECRET, {
       subject: this._id,
       expiresIn: config.JWT_EXPIRY,
