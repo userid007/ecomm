@@ -6,6 +6,7 @@ const collectionSchema = new mongoose.Schema(
       type: String,
       required: [true, "Collection name is required"],
       trim: true,
+      unique: true,
       maxLength: [120, "Collection name should not be more than 120 chars"],
     },
   },
