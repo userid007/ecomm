@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import AuthRoles from "../utils/authRoles";
+import AuthRoles from "../utils/authRoles.js";
 import bcrypt from "bcryptjs";
-import config from "./src/config/index.js";
+import config from "../config/index.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
@@ -67,4 +67,5 @@ userSchema.methods = {
     return forgetToken;
   },
 };
+
 export default mongoose.model("User", userSchema);

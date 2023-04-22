@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import OrderStatus from "../utils/orderStatus";
 
 const orderSchema = new mongoose.Schema(
   {
@@ -41,8 +40,8 @@ const orderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: Object.values(OrderStatus),
-      default: OrderStatus.ORDERED,
+      enum: ["ORDERED", "SHIPPED", "DELIVERED", "CANCELLED"],
+      default: "ORDERED",
     },
   },
   { timestamps: true }
