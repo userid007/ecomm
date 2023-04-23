@@ -5,8 +5,14 @@ import asyncHandler from "../service/asyncHandler.js";
 import CustomError from "../service/customError.js";
 
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
-  const token =
-    req.cookies.accessToken || req.get("authorization").split(" ")[1];
+  let token;
+  if (
+    req.cookies.accessToken ||
+    (req.headers.authorization &&
+      req.headers.authorization.startsWith("Bearer"))
+  ) {
+    token = req.cookies.accessToken || req.headers.authorization.split(" ")[1];
+  }
 
   if (!token) {
     throw new CustomError("Not authorized to access this resource", 401);

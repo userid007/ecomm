@@ -18,10 +18,11 @@ export const signUp = asyncHandler(async (req, res) => {
     throw new CustomError("User already exists", 400);
   }
 
-  const user = User.create({ name, email, password });
+  const user = await User.create({ name, email, password });
 
-  const token = user.getJWTtoken();
   user.password = undefined;
+  const token = user.getJWTtoken();
+
   res.cookie("accessToken", token, cookieOptions);
   res.status(201).json({
     success: true,
@@ -37,7 +38,7 @@ export const login = asyncHandler(async (req, res) => {
     throw new CustomError("All fields are required", 400);
   }
 
-  const user = User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email }).select("+password");
   if (!user) {
     throw new CustomError("Invalid credentials", 401);
   }
@@ -49,6 +50,7 @@ export const login = asyncHandler(async (req, res) => {
 
   const token = user.getJWTtoken();
   user.password = undefined;
+
   res.cookie("accessToken", token, cookieOptions);
   res.status(200).json({
     success: true,

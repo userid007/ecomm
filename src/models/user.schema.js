@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema(
 );
 
 //Encrypt the Password before save: HOOKS
-userSchema.pre("save", async (next) => {
+userSchema.pre("save", async function (next) {
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
   }
@@ -43,20 +43,20 @@ userSchema.pre("save", async (next) => {
 
 userSchema.methods = {
   //Compare Password
-  comparePassword: async (enteredPassword) => {
+  comparePassword: async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
   },
 
   //Generate JWT Token
-  getJWTtoken: async () => {
-    jwt.sign({ role: this.role }, config.JWT_SECRET, {
-      subject: this._id,
+  getJWTtoken: function () {
+    return jwt.sign({ role: this.role }, config.JWT_SECRET, {
+      subject: this.id,
       expiresIn: config.JWT_EXPIRY,
     });
   },
 
   //Generate forget Password Token
-  generateForgotPasswordToken: async () => {
+  generateForgotPasswordToken: function () {
     const forgetToken = crypto.randomBytes(20).toString("hex");
     this.forgetPasswordToken = crypto
       .createHash("sha256")
