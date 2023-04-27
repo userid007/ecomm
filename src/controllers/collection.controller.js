@@ -9,7 +9,7 @@ export const createCollection = asyncHandler(async (req, res) => {
   }
 
   const existingCollection = await Collection.findOne({ name });
-  if (!existingCollection) {
+  if (existingCollection) {
     throw new CustomError("Collection name is already exist", 400);
   }
 
