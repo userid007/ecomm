@@ -21,6 +21,6 @@ router.post(
 
 router.get("/", isLoggedIn, getAllProducts);
 router.get("/:id", isLoggedIn, getProductByCollectionId);
-router.delete("/:id", isLoggedIn, deleteProduct);
+router.delete("/:id", isLoggedIn, authorize(AuthRoles.ADMIN), deleteProduct);
 
 export default router;
