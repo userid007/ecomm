@@ -54,3 +54,52 @@ export const addProduct = asyncHandler(async (req, res) => {
     product,
   });
 });
+
+export const getAllProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({});
+  if (!products.length) {
+    throw new CustomError("No products found", 404);
+  }
+
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
+export const getProductByCollectionId = asyncHandler(async (req, res) => {
+  const { id: collectionId } = req.params;
+  const products = await Product.find({ collectionId });
+  if (!products.length) {
+    throw new CustomError("No products found", 404);
+  }
+  res.status(200).json({
+    success: true,
+    products,
+  });
+});
+
+export const deleteProduct = asyncHandler(async (req, res) => {
+  const { id: productId } = req.params;
+  const product = await Product.findById(productId);
+  if (!product) {
+    throw new CustomError("No product found", 404);
+  }
+
+  const deletePhotos = Promise.all(
+    product.photos.map(async (_, index) => {
+      await s3deleteFile({
+        bucketName: config.S3_BUCKET_NAME,
+        key: `products/${productId}/photo_${index + 1}.png`,
+      });
+    })
+  );
+
+  await deletePhotos;
+
+  await product.deleteOne();
+  res.status(200).json({
+    success: true,
+    message: "Product has been deleted successfully",
+  });
+});
