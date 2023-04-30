@@ -1,11 +1,4 @@
-import Joi from "joi";
-
-const schema = Joi.object({
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
-});
-
-export const loginValidator = (req, res, next) => {
+export const validateHandler = (req, res, next, schema) => {
   const result = schema.validate(req.body);
   if (!result.error) {
     next();
@@ -16,3 +9,5 @@ export const loginValidator = (req, res, next) => {
     });
   }
 };
+
+export default validateHandler;

@@ -6,8 +6,7 @@ import {
   getProfile,
 } from "../controllers/auth.controller.js";
 import { isLoggedIn } from "../middlewares/auth.middleware.js";
-import { signUpValidator } from "../validators/signUp.validator.js";
-import { loginValidator } from "../validators/login.validator.js";
+import { signUpValidator, loginValidator} from "../validators/auth.validator.js";
 
 const router = Router();
 
