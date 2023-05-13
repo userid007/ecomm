@@ -7,14 +7,16 @@ export const signUpValidator = (req, res, next) => {
   const namePattern = "^[a-zA-Z]+$";
   const signUpSchema = Joi.object({
     name: Joi.string()
+      .trim()
       .max(50)
       .pattern(new RegExp(namePattern))
       .required()
       .messages({
         "string.pattern.base": "Name should only contain characters",
       }),
-    email: Joi.string().email().required(),
+    email: Joi.string().trim().email().required(),
     password: Joi.string()
+      .trim()
       .min(8)
       .pattern(new RegExp(passwordPattern))
       .required()
@@ -27,8 +29,8 @@ export const signUpValidator = (req, res, next) => {
 
 export const loginValidator = (req, res, next) => {
   const loginSchema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
+    email: Joi.string().trim().email().required(),
+    password: Joi.string().trim().required(),
   });
   validateHandler(req, res, next, loginSchema);
 };

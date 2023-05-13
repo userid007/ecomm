@@ -94,10 +94,9 @@ export const deleteProduct = asyncHandler(async (req, res) => {
       });
     })
   );
-
   await deletePhotos;
-
   await product.deleteOne();
+
   res.status(200).json({
     success: true,
     message: "Product has been deleted successfully",

@@ -3,7 +3,7 @@ import validateHandler from "../service/validateHandler.js";
 
 export const createCouponValidator = (req, res, next) => {
   const createCouponSchema = Joi.object({
-    code: Joi.string().alphanum().required(),
+    code: Joi.string().trim().alphanum().required(),
     discount: Joi.number().min(0).max(100).required(),
     active: Joi.boolean().required(),
   });
@@ -12,7 +12,7 @@ export const createCouponValidator = (req, res, next) => {
 
 export const updateCouponValidator = (req, res, next) => {
   const updateCouponSchema = Joi.object({
-    code: Joi.string().alphanum(),
+    code: Joi.string().trim().alphanum(),
     discount: Joi.number().min(0).max(100),
     active: Joi.boolean(),
   });
