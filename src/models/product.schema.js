@@ -32,14 +32,17 @@ const productSchema = new mongoose.Schema(
     stock: {
       type: Number,
       default: 0,
+      required: true,
     },
     sold: {
       type: Number,
       default: 0,
+      required: true,
     },
     collectionId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Collection",
+      required: true,
     },
   },
   { timestamps: true }

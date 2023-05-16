@@ -18,7 +18,6 @@ router.post(
   formMiddleWare,
   addProduct
 );
-
 router.get("/", isLoggedIn, getAllProducts);
 router.get("/:id", isLoggedIn, getProductByCollectionId);
 router.delete("/:id", isLoggedIn, authorize(AuthRoles.ADMIN), deleteProduct);

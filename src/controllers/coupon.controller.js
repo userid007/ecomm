@@ -28,7 +28,7 @@ export const updateCoupon = asyncHandler(async (req, res) => {
 
   const coupon = await Coupon.findByIdAndUpdate(
     couponId,
-    { code, discount, active },
+    { discount, active },
     { new: true, runValidators: true }
   );
 

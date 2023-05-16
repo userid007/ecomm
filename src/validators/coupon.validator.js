@@ -12,7 +12,6 @@ export const createCouponValidator = (req, res, next) => {
 
 export const updateCouponValidator = (req, res, next) => {
   const updateCouponSchema = Joi.object({
-    code: Joi.string().trim().alphanum(),
     discount: Joi.number().min(0).max(100),
     active: Joi.boolean(),
   });
