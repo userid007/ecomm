@@ -47,7 +47,7 @@ export const updateCollection = asyncHandler(async (req, res) => {
 
 export const deleteCollection = asyncHandler(async (req, res) => {
   const { id: collectionId } = req.params;
-  const collectionToDelete = await Collection.findOneAndDelete(collectionId);
+  const collectionToDelete = await Collection.findByIdAndDelete(collectionId);
   if (!collectionToDelete) {
     throw new CustomError("Colection to be deleted not found", 400);
   }
